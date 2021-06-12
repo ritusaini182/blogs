@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             <label>Tags</label>
-            <input type="text" name="tags" class="form-control" value="{{$blogs->tags}}">
+            <input type="text" name="tags" class="form-control" value="{{$tags->tag_name}}">
             <span class="text-danger" id="">@error('tags'){{ $message }}@enderror</span>
         </div>
         <input type="submit" class="btn btn-default" value="Update">

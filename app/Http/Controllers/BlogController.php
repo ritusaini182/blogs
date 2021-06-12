@@ -110,7 +110,8 @@ class BlogController extends Controller
         $id = Helper::decodeID($id);
         $blogs = Blogs::find($id);
         $imgurl = URL::to('public/blogs/' . $blogs->image);
-        return view('blogs.edit', compact('blogs', 'imgurl'));
+        $tags = DB::table('tagging_tagged')->where('taggable_id',$id)->first();
+        return view('blogs.edit', compact('blogs', 'imgurl','tags'));
     }
 
     /**
@@ -142,8 +143,8 @@ class BlogController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'image' => $filename,
-            'tags' => $request->tags
         ]);
+        $tags = DB::table('tagging_tagged')->where('taggable_id', (int)$request->id)->update(array('tag_name' => $request->tags));
         Session::flash('message_update', 'Blog Updated successfully!');
         return redirect()->route('blogs');
     }
